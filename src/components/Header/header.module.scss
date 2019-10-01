@@ -1,0 +1,51 @@
+@import "../../styles/vars.scss";
+
+$small: 590px;
+
+
+.header{
+    display: flex;
+    padding: 24px 0;
+    align-items: center;
+    @media (max-width: $small) {
+        padding: 16px 0;
+    }
+
+    &__logoImage{
+        height: 48px;  
+        
+        @media (max-width: $small) {
+            height: 32px;
+        }
+    }
+    &__logoLink{
+        margin-right: auto;
+    }
+    &__nav{
+        display: flex;
+        align-items: center;
+    }
+    &__link{
+        color: $text-color;
+        padding: 8px 16px;
+        transition: 200ms ease-in;
+        text-decoration: none;
+
+        @media (max-width: $small) {
+            padding: 8px 8px;
+        }
+
+        &:hover, &Active{
+            color: $accent
+        }
+
+    }
+}
+
+.themeSwitcher{
+    margin-left: 24px;
+
+    @media (max-width: $small) {
+        display: none;
+    }
+}
