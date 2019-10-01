@@ -1,0 +1,84 @@
+@import '../../styles/vars';
+
+
+.table{
+    border-collapse: collapse;
+    width: 100%;
+    margin-bottom: 6rem;
+}
+.thead{
+    border-bottom: 1px solid $main;
+    margin-bottom: 8px;
+    padding-right: 14px;
+}
+.tbody{
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: 500px;
+
+    @media (max-width: 800px){
+        height: 300px;
+    }
+}
+
+.th{
+    padding: 10px 5px;
+    border-bottom: 1px solid $main;
+    vertical-align: top;
+}
+
+
+
+.tr{
+    display: flex;
+    width: 100%;
+}
+.col{
+    flex: 1;
+    padding: 10px 5px;
+}
+.colNum{
+    flex: 0 0 48px;
+}
+
+
+
+.not-found{
+    height: 120px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 32px;
+}
+    
+
+
+
+
+
+
+
+/* width */
+.table .tbody::-webkit-scrollbar {
+    width: 10px;
+    border-radius: 8px;
+}
+
+/* Track */
+.table .tbody::-webkit-scrollbar-track {
+    background: $bg-light; 
+    border-radius: 8px;
+}
+
+/* Handle */
+.table .tbody::-webkit-scrollbar-thumb {
+    background: $main; 
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 200ms ease-in;
+}
+
+/* Handle on hover */
+.table .tbody::-webkit-scrollbar-thumb:hover {
+    background: $main; 
+}
