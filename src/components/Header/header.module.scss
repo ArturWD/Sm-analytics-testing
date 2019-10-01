@@ -1,15 +1,13 @@
-@import "../../styles/vars.scss";
+@import "../../styles/vars";
 
 $small: 590px;
 
 
 .header{
     display: flex;
-    padding: 24px 0;
+    padding: 8px 0;
     align-items: center;
-    @media (max-width: $small) {
-        padding: 16px 0;
-    }
+    margin-bottom: 24px;
 
     &__logoImage{
         height: 48px;  
@@ -36,7 +34,7 @@ $small: 590px;
         }
 
         &:hover, &Active{
-            color: $accent
+            color: $main;
         }
 
     }

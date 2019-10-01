@@ -1,0 +1,17 @@
+@import "~reset-css/reset.css";
+@import "./vars";
+@import "./typography";
+
+
+*, *:before, *:after{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html{
+    background-color: $bg-dark;
+    color: $text-color;
+    overflow-x: hidden;
+}
+
