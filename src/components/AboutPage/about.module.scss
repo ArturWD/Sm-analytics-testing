@@ -1,12 +1,25 @@
 @import "../../styles/vars";
 
+$medium: 860px;
+$small: 500px;
+
 .aboutSection{
+    display: flex;
+    flex-direction: column;
+
 
     &__email{
         text-align: center;
         color: $main;
         font-size: 60px;
         margin-top: 24px;
+
+        @media (max-width: $medium){
+            font-size: 40px;
+        }
+        @media (max-width: $small){
+            font-size: 24px;
+        }
     }
 }
 
@@ -15,12 +28,25 @@
     justify-content: space-around;
     align-items: center;
 
+    @media (max-width: $medium){
+        flex-direction: column-reverse;
+    }
+
     &__message{
-        //color: $main;
         font-size: 50px;
+
+        @media (max-width: $medium){
+            font-size: 30px;
+        }
+        @media (max-width: $small){
+            font-size: 24px;
+        }
     }
     &__avatar{
         height: 400px;  
+        @media (max-width: $small){
+            height: 300px;
+        }
     }
     &__avatarContainer{
         position: relative;
@@ -28,9 +54,27 @@
             content: "Let's talk!";
             position: absolute;
             display: block;
-            transform: translate(-100%) rotate(-20deg);
-            left: 0;
+            opacity: 0;
+            left: -20px;
             top: 30%;
+            font-size: 18px;
+
+            animation: talk 2s 2s ease-in-out forwards;
         }
+
+        @media (max-width: $small){
+            align-self: flex-end;
+        }
+    }
+}
+
+@keyframes talk{
+    from{
+        opacity: 0;
+        transform: translate(0%) rotate(0deg);
+    }
+    to{
+        transform: translate(-100%) rotate(-20deg);
+        opacity: 1;
     }
 }
