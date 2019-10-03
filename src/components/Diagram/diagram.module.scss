@@ -1,0 +1,26 @@
+@import "../../styles/vars";
+
+.diagram .highcharts-background{
+    fill: red !important;
+}
+.select{
+    margin-top: 24px;
+    flex: 0 1 300px;
+
+    &:not(:last-child){
+        margin-right: 32px;
+    }
+    @media (max-width: 550px){
+        margin-right: 0;
+    }
+    
+}
+
+.controls{
+    display: flex;
+
+    @media (max-width: 550px){
+        flex-direction: column;
+    }
+}
+

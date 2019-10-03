@@ -1,0 +1,48 @@
+@import "../../styles/vars";
+
+.react-select{
+
+    &__control{
+        background-color: transparent !important;
+        border-radius: 8px !important;
+        border: 3px solid $main !important;
+
+        &:focus{
+            outline: none !important;
+        }
+    }
+    &__value-container{
+        background-color: transparent;
+    }
+    &__indicators{
+        background-color: transparent;
+    }
+    &__placeholder{
+        color: $main !important;
+    }
+    &__indicator svg{
+        fill: $main !important;
+    }
+    &__indicator-separator{
+        display: none !important;
+    }
+    &__menu{
+        z-index: -1;
+        position: relative;
+        top: 70% !important;
+        background-color: transparent !important;
+        border-radius: 0 0 8px 8px !important;
+        border: 3px solid $main;
+        border-top: none;
+    }
+    &__menu-list{
+        background-color: transparent !important;
+    }
+    &__option{
+        background-color: transparent !important;
+
+        &:hover{
+            background-color: $main-transparent !important;
+        }
+    }
+}

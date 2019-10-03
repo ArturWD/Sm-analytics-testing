@@ -1,12 +1,17 @@
 import React, {useEffect} from 'react'
 import * as Highcharts from 'highcharts';
+import Select from 'react-select'
 import HighchartsReact from 'highcharts-react-official';
 import {connect} from 'react-redux'
 import {AppState} from '../../store/configureStore'
 import {DataRow} from '../../dataProcessing/data'
 import darkUnica from "highcharts/themes/dark-unica";
-import { thisTypeAnnotation } from '@babel/types';
+import styles from './diagram.module.scss'
+import './select.scss'
+
+
 darkUnica(Highcharts);
+
 
 
 
@@ -34,15 +39,15 @@ class Diagram extends React.Component<any, any> {
         }else{
             let byCategories = [{
                 name: '0 - 100',
-                color: 'rgba(132, 232, 180, .5)',
+                color: 'rgba(132, 232, 180, .9)',
                 data: [] as any
             },{
                 name: '100 - 150',
-                color: 'rgba(241,97,1, .5)',
+                color: 'rgba(241,97,1, .9)',
                 data: [] as any
             },{
                 name: '150 and more',
-                color: 'rgba(216,232,245, .5)',
+                color: 'rgba(216,232,245, .7)',
                 data: [] as any
             }]
             products
@@ -64,9 +69,16 @@ class Diagram extends React.Component<any, any> {
     getRandomColor(){
         const randomNumber = (min: number, max: number) => Math.floor(Math.random() * (max - min + 1) + min);
         const randomByte = () => randomNumber(0, 255)
-        return `rgba(${[randomByte(), randomByte(), randomByte()].join(',')}, .5)`
+        return `rgba(${[randomByte(), randomByte(), randomByte()].join(',')}, .8)`
     }
-
+    getYearsOptions(){
+        let yearsSet: any = new Set(this.props.products.map((p: DataRow) => p.year)) 
+        const years = [... yearsSet]
+        return years.map( (year: any) => ({
+            value: year,
+            label: year
+        }))
+    }
 
     render(){
         const options: Highcharts.Options = {
@@ -79,7 +91,6 @@ class Diagram extends React.Component<any, any> {
             },
             xAxis: {
                 title: {
-                    //enabled: true,
                     text: 'Feature 1'
                 },
                 startOnTick: true,
@@ -98,7 +109,6 @@ class Diagram extends React.Component<any, any> {
                 x: 0,
                 y: 0,
                 floating: false,
-                //backgroundColor: Highcharts.defaultOptions.chart.backgroundColor,
                 borderWidth: 1
             },
             plotOptions: {
@@ -128,7 +138,7 @@ class Diagram extends React.Component<any, any> {
             series: this.filterData(this.props.products) as any
         }
 
-        
+        console.log(this.state.type)
 
 
         return(
@@ -138,8 +148,29 @@ class Diagram extends React.Component<any, any> {
                     options={options}
                     {...this.props}
                 />
-                <div>
-                    
+                <div className={styles.controls}>
+                    <Select
+                        placeholder={this.state.type == 'individual' ? 'Individual products' : 'Products by categories'}
+                        classNamePrefix="react-select"
+                        className={styles.select}
+                        value={this.state.type}
+                        isSearchable={false}
+                        onChange={(option) => this.setState({type: option.value})}
+                        options={[
+                            { value: 'individual', label: 'Individual products' },
+                            { value: 'categories', label: 'Products by categories' }
+                          ]}
+                    />
+
+                    <Select
+                        classNamePrefix="react-select"
+                        placeholder={this.state.year}
+                        className={styles.select}
+                        value={this.state.year}
+                        isSearchable={false}
+                        onChange={(option) => this.setState({year: option.value})}
+                        options={this.getYearsOptions()}
+                    />
                 </div>
             </div>
         )

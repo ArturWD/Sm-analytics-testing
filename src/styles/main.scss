@@ -20,3 +20,12 @@ html{
     fill: transparent !important;
     background-color: transparent !important;
 }
+
+.highcharts-background {
+    fill: transparent !important;
+}
+.highcharts-legend-box{
+    fill: $bg-light !important;
+    border: none !important;
+    outline: none !important;
+}
