@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './styles/main.scss';
+//import './styles/charts.scss';
 import App from './components/App/App';
 import configureStore from './store/configureStore'
 import {Provider} from 'react-redux'

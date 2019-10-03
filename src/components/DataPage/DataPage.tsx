@@ -3,7 +3,7 @@ import React from 'react'
 import Table from '../Table/Table'
 
 import dataStyles from './data.module.scss'
-
+import Piechart from '../Piechart/Piechart'
 
 const DataPage: React.FC = () => {
     return(
@@ -14,9 +14,7 @@ const DataPage: React.FC = () => {
                     <Table/>
                 </div>
                 <div className={dataStyles.dataSection__gridColumn}>
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. 
-                    Tempora eligendi odit veritatis molestias, eveniet dolorum ex i
-                    llum aliquam ut placeat sequi iusto voluptate nobis quos magni qui, quo veniam magnam!
+                    <Piechart/>
                 </div>
             </div>
         </div>

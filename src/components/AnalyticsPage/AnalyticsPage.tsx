@@ -1,9 +1,12 @@
 import React from 'react'
-
+import Diagram from '../Diagram/Diagram'
 const AnalyticsPage: React.FC = () => {
 
     return(
-        <h1>AnalyticsPage</h1>
+        <div>
+            <h1>Analytics</h1>
+            <Diagram/>
+        </div>
     )
 }
 

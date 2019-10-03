@@ -3,6 +3,7 @@
 @import "./typography";
 
 
+
 *, *:before, *:after{
     margin: 0;
     padding: 0;
@@ -15,3 +16,7 @@ html{
     overflow-x: hidden;
 }
 
+.highcharts-container {
+    fill: transparent !important;
+    background-color: transparent !important;
+}

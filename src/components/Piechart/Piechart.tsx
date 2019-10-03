@@ -1,95 +1,100 @@
 import React, {useEffect} from 'react'
-import {NavLink} from 'react-router-dom'
-//import ThemeSwither from '../ThemeSwitcher/ThemeSwitcher'
+import * as Highcharts from 'highcharts';
+import HighchartsReact from 'highcharts-react-official';
+import {connect} from 'react-redux'
+import {AppState} from '../../store/configureStore'
+import {DataRow} from '../../dataProcessing/data'
+import darkUnica from "highcharts/themes/dark-unica";
+darkUnica(Highcharts);
 
-import logo from '../../images/disillusioned-dev-logo.svg'
-import headerStyles from './header.module.scss'
 
-
-
-const Header: React.FC = () => {
-
-    useEffect(() =>{
-        var chart = Highcharts.chart('container', {
-
-            chart: {
-                type: 'column'
-            },
-        
-            title: {
-                text: 'Highcharts responsive chart'
-            },
-        
-            subtitle: {
-                text: 'Resize the frame or click buttons to change appearance'
-            },
-        
-            legend: {
-                align: 'right',
-                verticalAlign: 'middle',
-                layout: 'vertical'
-            },
-        
-            xAxis: {
-                categories: ['Apples', 'Oranges', 'Bananas'],
-                labels: {
-                    x: -10
-                }
-            },
-        
-            yAxis: {
-                allowDecimals: false,
-                title: {
-                    text: 'Amount'
-                }
-            },
-        
-            series: [{
-                name: 'Christmas Eve',
-                data: [1, 4, 3]
-            }, {
-                name: 'Christmas Day before dinner',
-                data: [6, 4, 2]
-            }, {
-                name: 'Christmas Day after dinner',
-                data: [8, 4, 3]
-            }],
-        
-            responsive: {
-                rules: [{
-                    condition: {
-                        maxWidth: 500
-                    },
-                    chartOptions: {
-                        legend: {
-                            align: 'center',
-                            verticalAlign: 'bottom',
-                            layout: 'horizontal'
-                        },
-                        yAxis: {
-                            labels: {
-                                align: 'left',
-                                x: 0,
-                                y: -5
-                            },
-                            title: {
-                                text: null
-                            }
-                        },
-                        subtitle: {
-                            text: null
-                        },
-                        credits: {
-                            enabled: false
-                        }
-                    }
-                }]
-            }
-        });
-    }, [])
-
-    return(
-        <div id="container"></div>
-    )
+interface Data{
+    name: string,
+    y: number
 }
-export default Header
+
+
+
+class Piechart extends React.Component<any, any> {
+    render(){
+        const options: Highcharts.Options = {
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false,
+                type: 'pie'
+            } as any,
+            title: {
+                text: 'Products amount by years'
+            },
+            tooltip: {
+                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: false
+                    },
+                    showInLegend: true
+                }
+            },
+            series: [{
+                name: 'Years',
+                colorByPoint: true,
+                data: this.props.products.reduce( (data: any, curr: DataRow) => {
+                    const index = data.findIndex((val: any) => val.name == curr.year)
+                    console.log(index)
+                    if(index !== -1){
+                        data[index].y = data[index].y+1
+                        return data
+                    
+                    }else{
+                        return [...data, {name: curr.year, y: 1}]
+                    }
+                }, [])
+            }] as any
+        }
+
+        const datat = this.props.products.reduce( (data: any, curr: DataRow) => {
+            const index = data.findIndex((val: any) => val.name == curr.year)
+            console.log(index)
+            if(index !== -1){
+                data[index].y = data[index].y+1
+                return data
+            
+            }else{
+                return [...data, {name: curr.year, y: 1}]
+            }
+        }, [])
+        console.log(datat)
+
+
+        return(
+            <div>
+                <HighchartsReact
+                    highcharts={Highcharts}
+                    options={options}
+                    {...this.props}
+                />
+            </div>
+        )
+    }
+}
+// const Piechart = (props: HighchartsReact.Props) => <div>
+//     <HighchartsReact
+//         highcharts={Highcharts}
+//         options={options}
+//         {...props}
+//     />
+// </div>
+
+function mapStateToProps(state: any) {
+    return {
+        products: state.products
+    }
+  }
+
+    
+export default connect(mapStateToProps)(Piechart)
