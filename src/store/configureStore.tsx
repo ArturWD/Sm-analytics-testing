@@ -1,14 +1,18 @@
 import { createStore, combineReducers} from 'redux';
-// import expensesReducer from '../reducers/expenses';
-// import filtersReducer from '../reducers/filters';
 
-// export default () => {
-//   const store = createStore(
-//     combineReducers({
-//       expenses: expensesReducer,
-//       filters: filtersReducer
-//     })
-//   );
+import productReducer from './reducers/productReducer'
 
-//   return store;
-// };
+
+const rootReducer = combineReducers({
+    products: productReducer
+})
+
+export default () => {
+  const store = createStore(
+    rootReducer
+  );
+
+  return store;
+};
+
+export type AppState = ReturnType<typeof rootReducer>

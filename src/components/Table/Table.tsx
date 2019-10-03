@@ -1,21 +1,34 @@
 import React from 'react'
-
+import {connect} from 'react-redux'
+import {Dispatch} from 'redux'
 import TableRow from '../TableRow/TableRow'
 import tableStyles from './table.module.scss'
+import {AppState} from '../../store/configureStore'
+import {DataRow} from '../../dataProcessing/data'
 
-import data, {DataRow} from '../../dataProcessing/data'
 
 
-// interface TableProps{
-//     products: DataRow[]
-// }
+  
+interface StateProps {
+    products: DataRow[]
+}
 
-const Table: React.FC = () => {
 
-    const products: DataRow[] = data
+type Props = StateProps 
 
-    return(
-        <div className={tableStyles.table}>
+interface State {
+    
+}
+
+
+class Table extends React.Component<Props, State>{
+
+    constructor(props: Props){
+        super(props)
+    }
+    render(){
+        return(
+            <div className={tableStyles.table}>
                 <div className={tableStyles.thead}>
                     <div className={tableStyles.tr}>
                         <div className={`${tableStyles.col} ${tableStyles.colNum}`}><span className={tableStyles.colName}>№</span></div>
@@ -27,11 +40,22 @@ const Table: React.FC = () => {
                 </div>
     
                 <div className={tableStyles.tbody}>
-                    {products.length === 0 ? <div className={tableStyles.notFound}>No data found</div>
-                    : products.map((product: DataRow, index: number) => <TableRow key={index} index={index} {...product}/>)}       
+                    {this.props.products.length === 0 ? <div className={tableStyles.notFound}>No data found</div>
+                    : this.props.products.map((product: DataRow, index: number) => <TableRow key={index} index={index} {...product}/>)}       
                 </div>
             </div>
-    )
+        )
+    }
 }
 
-export default Table
+function mapStateToProps(state: AppState) {
+    return {
+        products: state.products
+    }
+  }
+
+    
+export default connect
+    (mapStateToProps)(Table)
+
+
